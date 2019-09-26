@@ -1,0 +1,5 @@
+language: ruby
+dist: trusty
+
+script:
+  - ruby tests/game_test.rb
