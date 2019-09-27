@@ -1,0 +1,24 @@
+{
+  "done": [],
+  "in-progress": [],
+  "testing": [],
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "FRNdourPa"
+      },
+      "creation_time": "2019-09-26T08:48:48.875Z",
+      "description": {
+        "content": "Panneau de jeu correspondant à un essai",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "# Détails\n## Members\n- int roll_left (0-2)\n- int score (0-...)\n- int pin_left (0-10)\n- int bonus_score (0-2) Quand on fait un strike : bonus_score = 2, spare : bonus_score = 1\n## Methods\n- void roll (int)\n- bool can_roll\n- bool can_add_bonus_score : bonus_score > 0\n- int get_score\n- void add_bonus_score (int) : score += arg, bonus_score--\n",
+        "mime": "text/markdown"
+      },
+      "id": "1",
+      "references": [],
+      "title": "GamePannel"
+    }
+  ]
+}

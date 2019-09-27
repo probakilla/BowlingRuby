@@ -1,5 +1,6 @@
 require 'test/unit'
 require_relative '../src/pannel.rb'
+require_relative '../src/pannel_error.rb'
 
 class GameTest < Test::Unit::TestCase
   def setup
@@ -7,15 +8,15 @@ class GameTest < Test::Unit::TestCase
   end
 
   def test_initialization
-    assert_equal(0, @pannel.get_score())
+    assert_equal(0, @pannel.score())
     assert(@pannel.can_roll())
   end
 
   def test_roll
     @pannel.roll(5)
-    assert_equal(5, @pannel.get_score())
+    assert_equal(5, @pannel.score())
     @pannel.roll(3)
-    assert_equal(8, @pannel.get_score())
+    assert_equal(8, @pannel.score())
   end
 
   def test_roll_errors
@@ -23,6 +24,10 @@ class GameTest < Test::Unit::TestCase
     assert_raise(PannelError) { @pannel.roll(11) }
     assert_raise(ArgumentError) { @pannel.roll('hello') }
     assert_raise(ArgumentError) { @pannel.roll(1.1) }
+    assert_raise(PannelError) {
+      @pannel.roll(5)
+      @pannel.roll(6)
+    }
   end
 
   def test_can_roll
@@ -63,11 +68,11 @@ class GameTest < Test::Unit::TestCase
 
   def test_add_bonus_score_strike
     @pannel.roll(10)
-    assert_equal(10, @pannel.get_score())
+    assert_equal(10, @pannel.score())
     @pannel.add_bonus_score(6)
-    assert_equal(16, @pannel.get_score())
+    assert_equal(16, @pannel.score())
     @pannel.add_bonus_score(2)
-    assert_equal(18, @pannel.get_score())
+    assert_equal(18, @pannel.score())
     assert_raise(PannelError) { @pannel.add_bonus_score(1) }
   end
 
