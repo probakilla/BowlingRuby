@@ -6,4 +6,4 @@ addons:
     token: "891cd91ec06d87058565b9a6b6fa48dbe0ef29e8"
 script:
   - sonar-scanner
-  - ruby tests/pannel_test.rb
+  - ruby tests/test_suite_runner.rb

@@ -28,7 +28,7 @@ class Pannel
   end
 
   def add_bonus_score(score)
-    false
+    check_add_bonus_score(score)
   end
 
   private
@@ -38,7 +38,7 @@ class Pannel
   end
 
   def check_add_bonus_score(score)
-    raise PanbeError, "Invalid parameter, must be between 0 and 10" unless score >= 0 and roll <= MAX_PINS
+    raise PannelError, "Invalid parameter, must be between 0 and 10" unless score >= 0 and roll <= MAX_PINS
   end
 
   def change_pin_numbers(roll)
