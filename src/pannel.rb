@@ -1,16 +1,18 @@
-require_relative 'pannel.rb'
+require_relative 'pannel_error.rb'
 
 class Pannel
   MAX_PINS = 10
   INIT_NB_ROLLS = 2
 
-  attr_reader :score
-
-  def initialization
-    @roll_left = INIT_NB_ROLLS
+  def initialize
+    @roll_left = Pannel::INIT_NB_ROLLS
     @score = 0
-    @pin_left = MAX_PINS
+    @pin_left = Pannel::MAX_PINS
     @bonus_score = 0
+  end
+
+  def score
+    @score
   end
 
   def roll(nb_pins)
@@ -24,30 +26,44 @@ class Pannel
   end
 
   def can_add_bonus_score
-    false
+    @bonus_score > 0
   end
 
   def add_bonus_score(score)
     check_add_bonus_score(score)
+    @score += score
+    @bonus_score -= 1
   end
 
-  private
-
   def check_roll(roll)
-    raise PannelError, "Invalid roll value must be between 0 and #{@pin_left}" unless roll >= 0 and roll <= @pin_left
+    raise PannelError, "Invalid roll value must be between 0 and #{@pin_left}" if roll < 0 or roll > @pin_left
   end
 
   def check_add_bonus_score(score)
-    raise PannelError, "Invalid parameter, must be between 0 and 10" unless score >= 0 and roll <= MAX_PINS
+    raise ArgumentError, "Must be integer type" unless score.is_a?(Integer)
+    raise PannelError, "Invalid parameter, must be between 0 and 10" if @score < 0 and @score > Pannel::MAX_PINS
+    raise PannelError, "Can't add more score" if @bonus_score <= 0
   end
 
   def change_pin_numbers(roll)
     if can_roll()
       @pin_left -= roll
       @roll_left -= 1
+      @score += roll
+      check_spare_or_strike()
     else
       raise PannelError, 'Cannot play anymore'
     end
-    @pin_left = 0 if @pin_left < 0
+  end
+
+  def check_spare_or_strike()
+    if @pin_left == 0
+      if @roll_left == 0
+        @bonus_score = 1
+      elsif @roll_left == 1
+        @bonus_score = 2
+      end
+      @roll_left = 0
+    end
   end
 end

@@ -3,8 +3,9 @@ require_relative '../src/pannel.rb'
 require_relative '../src/pannel_error.rb'
 
 class GameTest < Test::Unit::TestCase
+
   def setup
-    @pannel = Pannel.new()
+    @pannel = Pannel.new
   end
 
   def test_initialization
@@ -13,15 +14,16 @@ class GameTest < Test::Unit::TestCase
   end
 
   def test_roll
-    @pannel.roll(5)
-    assert_equal(5, @pannel.score())
-    @pannel.roll(3)
-    assert_equal(8, @pannel.score())
+    pannel = Pannel.new
+    pannel.roll(5)
+    assert_equal(5, pannel.score())
+    pannel.roll(3)
+    assert_equal(8, pannel.score())
   end
 
   def test_roll_errors
-    assert_raise(PannelError) { @pannel.roll(-1) }
     assert_raise(PannelError) { @pannel.roll(11) }
+    assert_raise(PannelError) { @pannel.roll(-1) }
     assert_raise(ArgumentError) { @pannel.roll('hello') }
     assert_raise(ArgumentError) { @pannel.roll(1.1) }
     assert_raise(PannelError) {
@@ -39,14 +41,6 @@ class GameTest < Test::Unit::TestCase
     new_pannel = Pannel.new()
     new_pannel.roll(10)
     assert(!new_pannel.can_roll())
-  end
-
-  def test_can_add_bonus_score_normal
-    assert(!@pannel.can_add_bonus_score())
-    @pannel.roll(5)
-    assert(!@pannel.can_add_bonus_score())
-    @pannel.roll(5)
-    assert(!@pannel.can_add_bonus_score())
   end
 
   def test_can_add_bonus_score_spare
@@ -85,8 +79,8 @@ class GameTest < Test::Unit::TestCase
   end
 
   def test_add_bonus_score_errors
-    assert_raise(PannelError) { @pannel.add_bonus_score(-1) }
     assert_raise(PannelError) { @pannel.add_bonus_score(11) }
+    assert_raise(PannelError) { @pannel.add_bonus_score(-1) }
     assert_raise(ArgumentError) { @pannel.add_bonus_score('hello') }
     assert_raise(ArgumentError) { @pannel.add_bonus_score(1.1) }
   end
