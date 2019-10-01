@@ -5,6 +5,7 @@ class Pannel
   INIT_NB_ROLLS = 2
 
   attr_reader :score
+  attr_reader :pin_left
 
   def initialize()
     @roll_left = Pannel::INIT_NB_ROLLS
@@ -28,8 +29,10 @@ class Pannel
 
   def add_bonus_score(score)
     check_add_bonus_score(score)
-    @score += score
-    @bonus_score -= 1
+    if @bonus_score > 0
+      @score += score
+      @bonus_score -= 1
+    end
   end
 
   private
@@ -41,8 +44,7 @@ class Pannel
 
   def check_add_bonus_score(score)
     raise ArgumentError, "Must be integer type" unless score.is_a?(Integer)
-    raise PannelError, "Invalid parameter, must be between 0 and 10" if @score < 0 and @score > Pannel::MAX_PINS
-    raise PannelError, "Can't add more score" if @bonus_score <= 0
+    raise PannelError, "Invalid parameter, must be between 0 and 10" if score < 0 or score > 10
   end
 
   def change_pin_numbers(roll)

@@ -1,8 +1,5 @@
 {
-  "done": [],
-  "in-progress": [],
-  "testing": [],
-  "todo": [
+  "done": [
     {
       "assignedTo": {
         "name": "FRNdourPa"
@@ -19,6 +16,27 @@
       "id": "1",
       "references": [],
       "title": "GamePannel"
+    }
+  ],
+  "in-progress": [],
+  "testing": [],
+  "todo": [
+    {
+      "assignedTo": {
+        "name": "FRNdourPa"
+      },
+      "creation_time": "2019-09-30T12:43:10.702Z",
+      "description": {
+        "content": "Class used to represent a game of bowling",
+        "mime": "text/markdown"
+      },
+      "details": {
+        "content": "# Details\n## Members\n- Array(10) of Pannels\n- current_pannel (0..9)\n## Methods\n- void total_score\n- void roll(int)",
+        "mime": "text/markdown"
+      },
+      "id": "2",
+      "references": [],
+      "title": "Game"
     }
   ]
 }

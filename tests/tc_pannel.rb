@@ -2,7 +2,7 @@ require 'test/unit'
 require_relative '../src/pannel.rb'
 require_relative '../src/pannel_error.rb'
 
-class GameTest < Test::Unit::TestCase
+class PannelTest < Test::Unit::TestCase
 
   def setup
     @pannel = Pannel.new
@@ -67,7 +67,6 @@ class GameTest < Test::Unit::TestCase
     assert_equal(16, @pannel.score())
     @pannel.add_bonus_score(2)
     assert_equal(18, @pannel.score())
-    assert_raise(PannelError) { @pannel.add_bonus_score(1) }
   end
 
   def test_add_bonus_score_spare
