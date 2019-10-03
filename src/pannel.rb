@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require_relative 'pannel_error.rb'
 
+# Class representing a roll for the Bowling game
 class Pannel
   MAX_PINS = 10
   INIT_NB_ROLLS = 2
@@ -7,7 +10,7 @@ class Pannel
   attr_reader :score
   attr_reader :pin_left
 
-  def initialize()
+  def initialize
     @roll_left = Pannel::INIT_NB_ROLLS
     @score = 0
     @pin_left = Pannel::MAX_PINS
@@ -19,41 +22,43 @@ class Pannel
     change_pin_numbers(nb_pins)
   end
 
-  def can_roll()
-    @roll_left > 0
+  def can_roll?
+    @roll_left.positive?
   end
 
-  def can_add_bonus_score()
-    @bonus_score > 0
+  def can_add_bonus_score?
+    @bonus_score.positive?
   end
 
   def add_bonus_score(score)
     check_add_bonus_score(score)
-    if @bonus_score > 0
-      @score += score
-      @bonus_score -= 1
-    end
+    return unless @bonus_score.positive?
+
+    @score += score
+    @bonus_score -= 1
   end
 
   private
 
   def check_roll(roll)
-    raise ArgumentError unless roll.is_a? (Integer)
-    raise PannelError, "Invalid roll value must be between 0 and #{@pin_left}" if roll < 0 or roll > @pin_left
+    raise ArgumentError unless roll.is_a? Integer
+    return unless roll.negative? || roll > @pin_left
+
+    raise PannelError, "Invalid roll value must be between 0 and #{@pin_left}"
   end
 
   def check_add_bonus_score(score)
-    raise ArgumentError, "Must be integer type" unless score.is_a?(Integer)
-    raise PannelError, "Invalid parameter, must be between 0 and 10" if score < 0 or score > 10
+    raise ArgumentError, 'Must be integer type' unless score.is_a? Integer
+    return unless score.negative? || score > 10
+
+    raise PannelError, 'Invalid parameter, must be between 0 and 10'
   end
 
   def change_pin_numbers(roll)
-    if can_roll()
-      update_score(roll)
-      check_spare_or_strike()
-    else
-      raise PannelError, 'Cannot play anymore'
-    end
+    raise PannelError, 'Cannot play anymore' unless can_roll?
+
+    update_score(roll)
+    check_spare_or_strike
   end
 
   def update_score(roll)
@@ -62,23 +67,22 @@ class Pannel
     @score += roll
   end
 
-  def check_spare_or_strike()
-    if is_spare_or_strike()
-      update_bonus_score()
-      @roll_left = 0
-    end
+  def check_spare_or_strike
+    return unless spare_or_strike?
+
+    update_bonus_score
+    @roll_left = 0
   end
 
-  def is_spare_or_strike()
-    @pin_left == 0
+  def spare_or_strike?
+    @pin_left.zero?
   end
 
-  def update_bonus_score()
-    if @roll_left == 0
+  def update_bonus_score
+    if @roll_left.zero?
       @bonus_score = 1
     elsif @roll_left == 1
       @bonus_score = 2
     end
   end
-
 end

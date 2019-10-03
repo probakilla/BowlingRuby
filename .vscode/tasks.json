@@ -6,9 +6,9 @@
     {
       "label": "Run unit tests",
       "type": "shell",
-      "command": "ruby",
+      "command": "make",
       "args": [
-        "tests/test_suite_runner.rb"
+        "test"
       ],
       "group": {
         "kind": "test",
@@ -18,10 +18,7 @@
     {
       "label": "Run program",
       "type": "shell",
-      "command": "ruby",
-      "args": [
-        "src/game.rb"
-      ],
+      "command": "make",
       "group": {
         "kind": "build",
         "isDefault": true
