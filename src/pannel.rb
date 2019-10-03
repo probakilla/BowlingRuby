@@ -38,6 +38,14 @@ class Pannel
     @bonus_score -= 1
   end
 
+  def strike?
+    @roll_left == 1 && @pin_left.zero?
+  end
+
+  def spare?
+    @roll_left.zero? && @pin_left.zero?
+  end
+
   private
 
   def check_roll(roll)

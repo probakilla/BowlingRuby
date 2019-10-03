@@ -1,5 +1,5 @@
 RUBY=ruby
-MAIN=src/game.rb
+MAIN=src/main.rb
 TEST_MAIN=tests/test_suite_runner.rb
 
 all: run

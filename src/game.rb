@@ -4,6 +4,8 @@ require_relative 'pannel.rb'
 
 # Class for the game which use the pannel class
 class Game
+  attr_reader :current_pannel
+
   def initialize
     @pannels = Array.new(10, Pannel.new)
     @pannels[0] = Pannel.new
