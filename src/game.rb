@@ -40,8 +40,8 @@ class Game
   end
 
   def update_score(roll)
-    @pannels.each do |pannel|
-      pannel.add_bonus_score(roll) if pannel.can_add_bonus_score?
+    for i in 0..(@current_pannel - 1)
+      @pannels[i].add_bonus_score(roll) if @pannels[i].can_add_bonus_score?
     end
   end
 end
